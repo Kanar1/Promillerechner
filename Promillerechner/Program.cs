@@ -11,7 +11,7 @@ namespace Promillerechner
         static void Main(string[] args)
         {
             Trinkereigenschaften();
-            Biereigenschaften();
+            Formeln(Biereigenschaften());
             Console.ReadKey();
         }
         static void Trinkereigenschaften()
@@ -50,7 +50,7 @@ namespace Promillerechner
             Console.WriteLine("Du bist " + Mensch.Geschlecht);
         }
 
-        static string Biereigenschaften()
+        static Getränk Biereigenschaften()
         {
             Console.Clear();
 
@@ -94,20 +94,22 @@ namespace Promillerechner
             Console.WriteLine("Geben Sie folgende Eigenschaften an:");
 
             Console.Write("Füllenge in ml : ");
-            Getränk Füllmenge = Convert.ToInt32(Console.ReadLine());
+            Getränk test = new Getränk();
+            test.Füllmenge = int.Parse(Console.ReadLine());
 
-            Console.Write(" Alkoholgehalt ");
-            Getränk.Alkoholgehalt = float.Parse(Console.ReadLine());
+            Console.Write("Alkoholgehalt in Vol.-% : ");
+            test.Alkoholgehalt = float.Parse(Console.ReadLine());
 
             Console.Write("Menge : ");
-            int Menge = Convert.ToInt16(Console.ReadLine());
-            return
+            test.Menge = Convert.ToInt16(Console.ReadLine());
+            return test;
         }
 
-        static void Formeln()
+        static void Formeln(Getränk test)
         {
-            float reinerAlkohol = Menge * (Füllmenge * (Alkoholgehalt / 100) * 0.8);
-            float BAK =
+            double reinerAlkohol = test.Menge * (test.Füllmenge * (test.Alkoholgehalt / 100) * 0.8);
+            Console.WriteLine(reinerAlkohol);
+            //float BAK =
         }
     }
 }

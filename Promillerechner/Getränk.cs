@@ -10,7 +10,8 @@ namespace Promillerechner
     {
         public int Füllmenge { get; set; }
         public float Alkoholgehalt { get; set; }
-        public string Menge { get; set; }
+        public int Menge { get; set; }
+     
 
     }
 }
