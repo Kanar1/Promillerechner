@@ -11,6 +11,7 @@ namespace Promillerechner
         public int Gewicht { get; set; }
         public int Größe { get; set; }
         public string Geschlecht { get; set; }
+        public double Körperflüssigkeit { get; set; }
 
     }
 }

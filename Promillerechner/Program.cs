@@ -10,14 +10,15 @@ namespace Promillerechner
     {
         static void Main(string[] args)
         {
-            Trinkereigenschaften();
-            Formeln(Biereigenschaften());
+            Formeln(Trinkereigenschaften(), Biereigenschaften());
             Console.ReadKey();
         }
-        static void Trinkereigenschaften()
-        {
-            Trinker Mensch = new Trinker();
 
+        static Trinker Trinkereigenschaften()
+        {
+
+            Trinker Mensch = new Trinker();
+            Console.WriteLine("Geben Sie folgende Eigenschaften zu Ihrer Person an:");
 
             Console.Write("Gewicht in kg : ");
             Mensch.Gewicht = Convert.ToInt16(Console.ReadLine());
@@ -35,9 +36,11 @@ namespace Promillerechner
                 {
                     case 'm':
                         Mensch.Geschlecht = "Männlich";
+                        Mensch.Körperflüssigkeit = Mensch.Gewicht  * 68 / 100;
                         break;
                     case 'w':
                         Mensch.Geschlecht = "Weiblich";
+                        Mensch.Körperflüssigkeit = Mensch.Gewicht * 55 / 100;
                         break;
                     default:
                         Console.WriteLine("ungültiges Geschlecht!");
@@ -48,68 +51,37 @@ namespace Promillerechner
 
             } while ((Geschlecht != 'm') && (Geschlecht != 'w'));
             Console.WriteLine("Du bist " + Mensch.Geschlecht);
+            return Mensch;
         }
 
         static Getränk Biereigenschaften()
         {
+
             Console.Clear();
+            Getränk Getränk = new Getränk();
 
-            #region Getränkauswahl
-            //string Sorte;
-            //do
-            //{
-            //    Console.WriteLine("Welches Getränk möchten Sie trinken? Bier, Wein, Sekt, eigenes erstellen");
-            //    Sorte = Console.ReadLine();
-
-            //    switch (Sorte)
-            //    {
-            //        case "Bier":
-            //            Getränk Bier = new Getränk();
-            //            break;
-
-            //        case "Wein":
-            //            Getränk Wein = new Getränk();
-            //            break;
-
-
-            //        case "Sekt":
-            //            Getränk Sekt = new Getränk();
-            //            break;
-
-
-            //        case "eigenes erstellen":
-            //            Console.WriteLine("Geben Sie den Namen ihres Getränks ein!");
-            //            var eigenesGetränk = Console.ReadLine();
-            //            Getränk eigenGetränk = new Getränk();
-            //            break;
-
-
-            //        default:
-            //            Console.WriteLine("ungültige Eingabe!");
-            //            break;
-            //    }
-            //} while ((Sorte != "Bier") && (Sorte != "Wein") && (Sorte != "Sekt") && (Sorte != "eigenes erstellen"));
-            #endregion
-
-            Console.WriteLine("Geben Sie folgende Eigenschaften an:");
+            Console.WriteLine("Geben Sie folgende Eigenschaften für das Getränk an:");
 
             Console.Write("Füllenge in ml : ");
-            Getränk test = new Getränk();
-            test.Füllmenge = int.Parse(Console.ReadLine());
+            Getränk.Füllmenge = int.Parse(Console.ReadLine());
 
             Console.Write("Alkoholgehalt in Vol.-% : ");
-            test.Alkoholgehalt = float.Parse(Console.ReadLine());
+            Getränk.Alkoholgehalt = float.Parse(Console.ReadLine());
 
-            Console.Write("Menge : ");
-            test.Menge = Convert.ToInt16(Console.ReadLine());
-            return test;
+            Console.Write("Menge an getrunkenen Getränken : ");
+            Getränk.Menge = Convert.ToInt16(Console.ReadLine());
+
+            return Getränk;
         }
 
-        static void Formeln(Getränk test)
+        static void Formeln(Trinker Mensch, Getränk Getränk)
         {
-            double reinerAlkohol = test.Menge * (test.Füllmenge * (test.Alkoholgehalt / 100) * 0.8);
-            Console.WriteLine(reinerAlkohol);
-            //float BAK =
+
+            double AlkoholinGramm = (Getränk.Füllmenge * (Getränk.Alkoholgehalt / 100) * 0.8);
+
+            double Promille = (Getränk.Menge * AlkoholinGramm) / (Mensch.Gewicht * Mensch.Körperflüssigkeit);
+
+            Console.WriteLine("Sie haben einen Promillewert von : " + Promille.ToString("0.00"));
         }
     }
 }
